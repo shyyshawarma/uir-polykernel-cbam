@@ -3,7 +3,7 @@ import warnings
 
 import torchvision
 
-# from metrics.uciqe import batch_uciqe
+from metrics.uciqe import batch_uciqe
 
 from accelerate import Accelerator
 from torch.utils.data import DataLoader
@@ -62,11 +62,11 @@ def test():
 
         stat_psnr += peak_signal_noise_ratio(res, tar, data_range=1).item()
         stat_ssim += structural_similarity_index_measure(res, tar, data_range=1).item()
-        # stat_uciqe += batch_uciqe(res)
+        stat_uciqe += batch_uciqe(res)
 
     stat_psnr /= size
     stat_ssim /= size
-    # stat_uciqe /= size
+    stat_uciqe /= size
 
     test_info = ("Test Result on {}, check point {}, testing data {}".
                  format(opt.MODEL.SESSION, opt.TESTING.WEIGHT, opt.TESTING.VAL_DIR))
